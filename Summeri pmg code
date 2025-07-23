@@ -1,0 +1,68 @@
+!pip install nltk
+!pip install spacy
+!pip install transformers
+!pip install sumy
+!python -m spacy download en_core_web_sm
+------------------------------------------------------install the lbe----------------------------------------
+import nltk
+import spacy
+from sumy.parsers.plaintext import PlaintextParser
+from sumy.nlp.tokenizers import Tokenizer
+from sumy.summarizers.lex_rank import LexRankSummarizer
+from transformers import pipeline
+nltk.download('punkt')
+
+------------------------------------------------downode--------------------------------------------------------
+import nltk
+import spacy
+from sumy.parsers.plaintext import PlaintextParser
+from sumy.nlp.tokenizers import Tokenizer
+from sumy.summarizers.lex_rank import LexRankSummarizer
+from transformers import pipeline
+
+# Download the required NLTK data package 'punkt_tab'
+nltk.download('punkt_tab') # This line is added to download the missing resource
+
+# Continue with the rest of your code
+nltk.download('punkt')
+
+def extractive_summary(text, sentences_count=3):
+    parser = PlaintextParser.from_string(text, Tokenizer("english"))
+    summarizer = LexRankSummarizer()
+    summary = summarizer(parser.document, sentences_count)
+    return ' '.join([str(sentence) for sentence in summary])
+
+# Example usage
+text = """
+Artificial intelligence (AI) is intelligence demonstrated by machines, in contrast to the natural intelligence displayed by humans and animals. Leading AI textbooks define the field as the study of "intelligent agents": any device that perceives its environment and takes actions that maximize its chance of successfully achieving its goals. Colloquially, the term "artificial intelligence" is often used to describe machines (or computers) that mimic "cognitive" functions that humans associate with the human mind, such as "learning" and "problem-solving".
+"""
+
+summary = extractive_summary(text)
+print("Extractive Summary:\n", summary)
+
+
+
+
+
+-------------------------------------------------------------------------what type of texe  you  summery put hear---------------------------------
+
+def abstractive_summary(text, max_length=130, min_length=30):
+    summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
+    summary = summarizer(text, max_length=max_length, min_length=min_length, do_sample=False)
+    return summary[0]['summary_text']
+
+# Example usage
+text = """
+Artificial intelligence (AI) is intelligence demonstrated by machines, in contrast to the natural intelligence displayed by humans and animals. Leading AI textbooks define the field as the study of "intelligent agents": any device that perceives its environment and takes actions that maximize its chance of successfully achieving its goals. Colloquially, the term "artificial intelligence" is often used to describe machines (or computers) that mimic "cognitive" functions that humans associate with the human mind, such as "learning" and "problem-solving".
+"""
+
+summary = abstractive_summary(text)
+print("Abstractive Summary:\n", summary)
+
+
+-------------------------------------------------------------------------------------------------
+print("Original Text:\n", text)
+print("\nExtractive Summary:\n", extractive_summary(text))
+print("\nAbstractive Summary:\n", abstractive_summary(text))
+
+---------------------------last out put----------------------------------------------------------------------
