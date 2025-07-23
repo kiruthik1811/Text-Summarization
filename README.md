@@ -16,7 +16,7 @@ Easy-to-use Python functions with example outputs.
 bash
 Copy
 Edit
-git clone https://github.com/your-username/Text-Summarization.git
+git clone https://github.com/kiruthik1811/Text-Summarization
 cd Text-Summarization
 2. Install Dependencies
 bash
